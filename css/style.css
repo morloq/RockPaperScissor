@@ -16,18 +16,25 @@ main{
     gap:25px;
 }
 
-
 .reset{
     margin-top:20px;
     display:flex;
     justify-content: center;
 }
 
+.info{
+    margin-top: 20px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+}
+
 button{
     border-radius: 25px;
     width:200px;
     height:200px;
-    border-color:black;
+    border-color:grey;
 }
 .reset .btnreset{
     width:100px;
@@ -35,15 +42,18 @@ button{
 }
 
 .rock{
-
+    background: url(../images/pexels-luis-quintero-2258250.jpg);
+    background-size: 200px 200px;
 }
 
 .scissor{
-
+    background: url(../images/pexels-nikolaos-dimou-1319460.jpg);
+    background-size: 200px 200px;
 }
 
 .paper{
-
+    background: url(../images/pexels-lisa-2304253.jpg);
+    background-size: 200px 200px;
 }
 .container{
     display:flex;

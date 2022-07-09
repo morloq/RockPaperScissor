@@ -1,53 +1,102 @@
-function game(){
+function game(){//put together game logic:
 
     let player_counter = 0;
     let computer_counter = 0;
-    let player_input;
+    let player_input = 0;
 
-    for(let i = 0; i < 5; i++)
+    while(player_counter!=5 && computer_counter!=5)
     {
-        //do stuff
         play_round();
-        won_tie_lost();
-
     }
+    won_five_rounds();
 }
-
+//put together functions to play a round:
 function play_round(){
     player_choose_value();
-    computer_choose_value();
+    won_tie_lost();
 }
-
+//check if tie or some kind of win, update counters and output field accordingly
 function won_tie_lost(){
     //if tie -> "It's a tie!"
-    //if rock scissor or scissor rock  && player's rock-> "Rock beats scissor, another win for mankind"
-    //if paper scissor or scissor paper && player's scissor -> "Scissor beats paper, another win for mankind"
-    //if rock and paper or paper rock && player's paper -> "Paper beats rock, another win for mankind"
-    //if rock scissor or scissor rock  && computer's rock> "Rock beats scissor, mankind is doomed"
-    //if paper scissor or scissor paper && computer's scissor -> "Scissor beats paper, mankind is doomed"
-    //if rock and paper or paper rock && computer's paper -> "Paper beats rock, mankind is doomed"
+    if((player_input == 1 && computer_choose_value == 1) || (player_input == 2 && computer_choose_value == 2)  || (player_input == 3 && computer_choose_value == 3))
+    {
+        document.getElementByClassName("WinLossTie").textContent="It's a tie!";
+    }
+    //rock scissor, computer win
+    if(player_input == 2 && computer_choose_value == 1)
+    {
+        document.getElementByClassName("WinLossTie").textContent="Rock beats scissor, win for computer";
+        this.computer_counter++;
+        document.getElementByClassName("ComputerCounter").textContent="Computer: ${computer_counter}";
+    }
+    //rock scissor, player win
+    if(player_input == 1 && computer_choose_value == 2)
+    {
+        document.getElementByClassName("WinLossTie").textContent="Rock beats scissor, win for player";
+        this.player_counter++;
+        document.getElementByClassName("PlayerCounter").textContent="Player: ${player}";
+    }
+    //rock paper, comupter win
+    if(player_input==1 && computer_choose_value==3)
+    {
+        document.getElementByClassName("WinLossTie").textContent="Paper beats rock, win for computer"
+        this.computer_counter++;
+        document.getElementByClassName("ComputerCounter").textContent="Computer: ${computer_counter}";
+    }
+    //rock paper, player win
+    if(player_input==3 && computer_choose_value==1)
+    {
+        document.getElementByClassName("WinLossTie").textContent="Paper beats rock, win for player";
+        this.player_counter++;
+        document.getElementByClassName("PlayerCounter").textContent="Player: ${player}";
+    }
+    //paper scissor, computer win
+    if(player_input==2 && computer_choose_value==3)
+    {
+        document.getElementByClassName("WinLossTie").textContent="Scissor beats paper, win for computer"
+        this.computer_counter++;
+        document.getElementByClassName("ComputerCounter").textContent="Computer: ${computer_counter}";
+    }
+    //paper scissor, player win
+    {
+        document.getElementByClassName("WinLossTie").textContent="Scissor beats paper, win for player";
+        this.player_counter++;
+        document.getElementByClassName("PlayerCounter").textContent="Player: ${player}";
+    }
+    
 }
 
-function won_game_of_five(){
+function won_five_rounds(){
     if(player_counter == 5)
     {
-        alert("Mankind dominates!");
+        document.getElementByClassName("WinLossTie").textContent="Mankind dominates!";
     }
     else if(computer_counter == 5)
     {
-        alert("Technology has won out, mankind is doomed!");
+        document.getElementByClassName("WinLossTie").textContent="Mankind sucks!";
     }
 }
-
+//register button click and:
 function reset(){
+
     this.computer_counter = 0;
     this.player_counter = 0;
 }
 
+//register button click and:
 function player_choose_value(){
     //check which button has been clicked -> rock, paper or scissor
+    document.getElementByClassName("rock").addEventListener("click", function(){
+        this.player_input = 1;
+    });
+    document.getElementByClassName("scissor").addEventListener("click", function(){
+        this.player_input = 2;
+    });
+    document.getElementByClassName("rock").addEventListener("click", function(){
+        this.player_input = 3;
+    });
 }
-
+//generate random value between 1 and 3 and return it
 function computer_choose_value(){
     return Math.floor(Math.random()* (3 - 1 +1) + 1);//1 -> rock, 2 -> scissor, 3 -> paper
 }

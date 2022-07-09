@@ -1,20 +1,29 @@
-function game(){//put together game logic:
-
-    let player_counter = 0;
-    let computer_counter = 0;
-    let player_input = 0;
-
-    while(player_counter!=5 && computer_counter!=5)
-    {
-        play_round();
-    }
-    won_five_rounds();
+//register button click and:
+function player_choose_value(){
+    //check which button has been clicked -> rock, paper or scissor
+    document.getElementByClassName("rock").addEventListener("click", function(){
+        this.player_input = 1;
+    });
+    document.getElementByClassName("scissor").addEventListener("click", function(){
+        this.player_input = 2;
+    });
+    document.getElementByClassName("rock").addEventListener("click", function(){
+        this.player_input = 3;
+    });
 }
-//put together functions to play a round:
-function play_round(){
-    player_choose_value();
-    won_tie_lost();
+
+//generate random value between 1 and 3 and return it
+function computer_choose_value(){
+    return Math.floor(Math.random()* (3 - 1 +1) + 1);//1 -> rock, 2 -> scissor, 3 -> paper
 }
+
+//register button click and:
+function reset(){
+
+    this.computer_counter = 0;
+    this.player_counter = 0;
+}
+
 //check if tie or some kind of win, update counters and output field accordingly
 function won_tie_lost(){
     //if tie -> "It's a tie!"
@@ -65,6 +74,11 @@ function won_tie_lost(){
     }
     
 }
+//put together functions to play a round:
+function play_round(){
+    player_choose_value();
+    won_tie_lost();
+}
 
 function won_five_rounds(){
     if(player_counter == 5)
@@ -76,27 +90,16 @@ function won_five_rounds(){
         document.getElementByClassName("WinLossTie").textContent="Mankind sucks!";
     }
 }
-//register button click and:
-function reset(){
 
-    this.computer_counter = 0;
-    this.player_counter = 0;
-}
+function game(){//put together game logic:
 
-//register button click and:
-function player_choose_value(){
-    //check which button has been clicked -> rock, paper or scissor
-    document.getElementByClassName("rock").addEventListener("click", function(){
-        this.player_input = 1;
-    });
-    document.getElementByClassName("scissor").addEventListener("click", function(){
-        this.player_input = 2;
-    });
-    document.getElementByClassName("rock").addEventListener("click", function(){
-        this.player_input = 3;
-    });
-}
-//generate random value between 1 and 3 and return it
-function computer_choose_value(){
-    return Math.floor(Math.random()* (3 - 1 +1) + 1);//1 -> rock, 2 -> scissor, 3 -> paper
+    let player_counter = 0;
+    let computer_counter = 0;
+    let player_input = 0;
+
+    while(player_counter!=5 && computer_counter!=5)
+    {
+        play_round();
+    }
+    won_five_rounds();
 }

@@ -1,0 +1,51 @@
+header{
+    background: url(../images/rock-paper-scissors-cartoon-banner-with-human-hands-playing-game-showing-fingers-gestures-friends-challenge-competition-decision-strategy-win-people-playing-fun-vector-illustration_107791-8480.webp) no-repeat center center;
+    min-height:300px;
+    max-height: 500px;
+}
+
+main{
+    display:flex;
+    flex-direction:column;
+    margin-top:50px;
+}
+
+.gameButtons{
+    display:flex;
+    justify-content: center;
+    gap:25px;
+}
+
+
+.reset{
+    margin-top:20px;
+    display:flex;
+    justify-content: center;
+}
+
+button{
+    border-radius: 25px;
+    width:200px;
+    height:200px;
+    border-color:black;
+}
+.reset .btnreset{
+    width:100px;
+    height:100px;
+}
+
+.rock{
+
+}
+
+.scissor{
+
+}
+
+.paper{
+
+}
+.container{
+    display:flex;
+    flex-direction: column;
+}

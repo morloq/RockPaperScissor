@@ -1,24 +1,29 @@
 let player_counter = 0;
 let computer_counter = 0;
-let player_input = 0;
 
-const btnRock = document.querySelector('rock');
-const btnScissor = document.querySelector('scissor');
-const btnPaper = document.querySelector('paper');
-const btnReset = document.querySelector('btnreset');
-let WinLossTie = document.querySelector('WinLossTie');
+let playerValue = 0;
+
+const btnRock = document.querySelector('.rock');
+const btnScissor = document.querySelector('.scissor');
+const btnPaper = document.querySelector('.paper');
+const btnReset = document.querySelector('.btnreset');
+let WinLossTie = document.querySelector('.WinLossTie');
+let PlayerCount = document.querySelector('.PlayerCounter');
+let ComputerCount = document.querySelector('.ComputerCounter');
 
 //register button click and:
 function player_choose_value(){
     //check which button has been clicked -> rock 1, scissor 2 or paper 3
     btnRock.addEventListener("click", () =>{
-        this.player_input = 1;
+        playerValue = 1;
     });
-    this.btnScissor.addEventListener("click", () =>{
-        this.player_input = 2;
+
+    btnScissor.addEventListener("click", () =>{
+        playerValue = 2;
     });
-    this.btnPaper.addEventListener("click", () =>{
-        this.player_input = 3;
+    
+    btnPaper.addEventListener("click", () =>{
+        playerValue = 3;
     });
 }
 
@@ -29,85 +34,88 @@ function computer_choose_value(){
 
 //register button click and:
 function reset(){
-    this.btnReset.addEventListener("click", () =>{
-        this.computer_counter = 0;
-        this.player_counter = 0;
-        this.player_input = 0;
+    btnReset.addEventListener("click", () =>{
+        computer_counter = 0;
+        player_counter = 0;
+        playerValue = 0;
     });
 }
 
 //check if tie or some kind of win, update counters and output field accordingly
-function won_tie_lost(){
+function won_tie_lost(valueComputer, valuePlayer){
     //if tie -> "It's a tie!"
-    if((player_input == 1 && computer_choose_value == 1) || (player_input == 2 && computer_choose_value == 2)  || (player_input == 3 && computer_choose_value == 3))
+    if((valuePlayer == 1 && valueComputer == 1) || (valuePlayer == 2 && valueComputer == 2)  || (valuePlayer == 3 && valueComputer == 3))
     {
-        this.WinLossTie.textContent="It's a tie!";
+        WinLossTie.textContent="It's a tie!";
     }
     //rock scissor, computer win
-    if(player_input == 2 && computer_choose_value == 1)
+    if(valuePlayer == 2 && valueComputer == 1)
     {
-        this.WinLossTie.textContent="Rock beats scissor, win for computer";
-        this.computer_counter++;
-        document.getElementByClassName("ComputerCounter").textContent="Computer: ${computer_counter}";
+        WinLossTie.textContent="Rock beats scissor, win for computer";
+        computer_counter++;
+        ComputerCount.textContent = "Computer: " + computer_counter;
     }
     //rock scissor, player win
-    if(player_input == 1 && computer_choose_value == 2)
+    if(valuePlayer == 1 && valueComputer == 2)
     {
-        this.WinLossTie.textContent="Rock beats scissor, win for player";
-        this.player_counter++;
-        document.getElementByClassName("PlayerCounter").textContent="Player: ${player}";
+        WinLossTie.textContent="Rock beats scissor, win for player";
+        player_counter++;
+        PlayerCount.textContent = "Player: " + player_counter;
     }
     //rock paper, comupter win
-    if(player_input==1 && computer_choose_value==3)
+    if(valuePlayer==1 && valueComputer==3)
     {
-        this.WinLossTie.textContent="Paper beats rock, win for computer"
-        this.computer_counter++;
-        document.getElementByClassName("ComputerCounter").textContent="Computer: ${computer_counter}";
+        WinLossTie.textContent="Paper beats rock, win for computer";
+        computer_counter++;
+        ComputerCount.textContent = "Computer: " + computer_counter;
     }
     //rock paper, player win
-    if(player_input==3 && computer_choose_value==1)
+    if(valuePlayer==3 && valueComputer==1)
     {
-        this.WinLossTie.textContent="Paper beats rock, win for player";
-        this.player_counter++;
-        document.getElementByClassName("PlayerCounter").textContent="Player: ${player}";
+        WinLossTie.textContent="Paper beats rock, win for player";
+        player_counter++;
+        PlayerCount.textContent = "Player: " + player_counter;
     }
     //paper scissor, computer win
-    if(player_input==2 && computer_choose_value==3)
+    if(valuePlayer==3 && valueComputer==2)
     {
-        this.WinLossTietextContent="Scissor beats paper, win for computer"
-        this.computer_counter++;
-        document.getElementByClassName("ComputerCounter").textContent="Computer: ${computer_counter}";
+        WinLossTietextContent="Scissor beats paper, win for computer";
+        computer_counter++;
+        ComputerCount.textContent =" Computer: ${computer_counter}";
     }
     //paper scissor, player win
+    if(valuePlayer==2 && valueComputer==3)
     {
-        this.WinLossTie.textContent="Scissor beats paper, win for player";
-        this.player_counter++;
-        document.getElementByClassName("PlayerCounter").textContent="Player: ${player}";
+        WinLossTie.textContent="Scissor beats paper, win for player";
+        player_counter++;
+        PlayerCount.textContent = "Player: " + player_counter;
     }
     
 }
 //put together functions to play a round:
 function play_round(){
-    player_choose_value();
-    won_tie_lost();
+    let computerValue = computer_choose_value();
+    player_choose_value();//is always zero
+    console.log(playerValue);
+    won_tie_lost(computerValue, playerValue);
 }
 
-function won_five_rounds(){
-    if(player_counter == 5)
+function won_three_rounds(){
+    if(player_counter == 3)
     {
-        this.WinLossTie.textContent="Mankind dominates!";
+        WinLossTie.textContent="Mankind dominates!";
     }
-    else if(computer_counter == 5)
+    else if(computer_counter == 3)
     {
-        this.WinLossTie.textContent="Mankind sucks!";
+        WinLossTie.textContent="Mankind sucks!";
     }
 }
 
 function game(){//put together game logic:
-
-    while(player_counter!=5 && computer_counter!=5)//while neither has 5 wins:
+    for(let i = 0; i < 5; i++)
     {
         play_round();
-        won_five_rounds();
+        won_three_rounds();
     }
 }
+game();

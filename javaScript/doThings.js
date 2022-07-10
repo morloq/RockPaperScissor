@@ -14,6 +14,11 @@ let ComputerCount = document.querySelector('.ComputerCounter');
 //register button click and:
 function player_choose_value(){
     //check which button has been clicked -> rock 1, scissor 2 or paper 3
+    return new Promise(resolve => {
+        btnRock.onclick = () => resolve(1)
+        btnScissor.onclick = () => resolve(2)
+        btnPaper.onclick = () => resolve(3)
+    });
     btnRock.addEventListener("click", () =>{
         playerValue = 1;
     });
@@ -38,6 +43,10 @@ function reset(){
         computer_counter = 0;
         player_counter = 0;
         playerValue = 0;
+        PlayerCount.textContent = "Player: 0";
+        ComputerCount.textContent = "Computer: 0";
+        WinLossTie.textContent="Play again!";
+        game();
     });
 }
 
@@ -93,29 +102,28 @@ function won_tie_lost(valueComputer, valuePlayer){
     
 }
 //put together functions to play a round:
-function play_round(){
+async function play_round(){
     let computerValue = computer_choose_value();
-    player_choose_value();//is always zero
+    playerValue = await player_choose_value();
     console.log(playerValue);
     won_tie_lost(computerValue, playerValue);
-}
-
-function won_three_rounds(){
-    if(player_counter == 3)
-    {
-        WinLossTie.textContent="Mankind dominates!";
-    }
-    else if(computer_counter == 3)
-    {
-        WinLossTie.textContent="Mankind sucks!";
-    }
 }
 
 function game(){//put together game logic:
     for(let i = 0; i < 5; i++)
     {
         play_round();
-        won_three_rounds();
+        if(player_counter == 3)
+        {
+            WinLossTie.textContent="Mankind dominates!";
+            break;
+        }
+        else if(computer_counter == 3)
+        {
+            WinLossTie.textContent="Mankind sucks!";
+            break;
+        }
     }
+    reset();
 }
 game();

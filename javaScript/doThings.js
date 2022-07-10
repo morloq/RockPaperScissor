@@ -110,15 +110,15 @@ async function play_round(){
 }
 
 function game(){//put together game logic:
-    for(let i = 0; i < 5; i++)
+    while(player_counter !=5 && computer_counter != 5)//page does not load
     {
         play_round();
-        if(player_counter == 3)
+        if(player_counter == 5)
         {
             WinLossTie.textContent="Mankind dominates!";
             break;
         }
-        else if(computer_counter == 3)
+        else if(computer_counter == 5)
         {
             WinLossTie.textContent="Mankind sucks!";
             break;

@@ -37,19 +37,6 @@ function computer_choose_value(){
     return Math.floor(Math.random()* (3 - 1 +1) + 1);//1 -> rock, 2 -> scissor, 3 -> paper
 }
 
-//register button click and:
-function reset(){
-    btnReset.addEventListener("click", () =>{
-        computer_counter = 0;
-        player_counter = 0;
-        playerValue = 0;
-        PlayerCount.textContent = "Player: 0";
-        ComputerCount.textContent = "Computer: 0";
-        WinLossTie.textContent="Play again!";
-        game();
-    });
-}
-
 //check if tie or some kind of win, update counters and output field accordingly
 function won_tie_lost(valueComputer, valuePlayer){
     //if tie -> "It's a tie!"
@@ -90,7 +77,7 @@ function won_tie_lost(valueComputer, valuePlayer){
     {
         WinLossTietextContent="Scissor beats paper, win for computer";
         computer_counter++;
-        ComputerCount.textContent =" Computer: ${computer_counter}";
+        ComputerCount.textContent ="Computer: " + computer_counter;
     }
     //paper scissor, player win
     if(valuePlayer==2 && valueComputer==3)
@@ -109,21 +96,34 @@ async function play_round(){
     won_tie_lost(computerValue, playerValue);
 }
 
-function game(){//put together game logic:
-    while(player_counter !=5 && computer_counter != 5)//page does not load
-    {
-        play_round();
-        if(player_counter == 5)
-        {
-            WinLossTie.textContent="Mankind dominates!";
-            break;
-        }
-        else if(computer_counter == 5)
-        {
-            WinLossTie.textContent="Mankind sucks!";
-            break;
-        }
+async function main() {
+    while (player_counter != 5 && computer_counter != 5) { // Keep repeating the game
+      await play_round()
+
+      if(player_counter == 5)
+      {
+        WinLossTie.textContent="Mankind dominates!";
+        break;
+      }
+      else if(computer_counter == 5)
+      {
+        WinLossTie.textContent="Mankind sucks!";
+        break;
+      }
     }
     reset();
+  }
+  main();
+
+//register button click and:
+function reset(){
+    btnReset.addEventListener("click", () =>{
+        computer_counter = 0;
+        player_counter = 0;
+        playerValue = 0;
+        PlayerCount.textContent = "Player: 0";
+        ComputerCount.textContent = "Computer: 0";
+        WinLossTie.textContent="Play again!";
+        main();
+    });
 }
-game();
